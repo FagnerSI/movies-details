@@ -1,0 +1,74 @@
+@import '../../styles/breakpoints';
+
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 72px;
+    box-sizing: border-box;
+
+    .buttonFavorite {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+   }
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    box-shadow: inset 0px -6px 30px var(--pure-black-color);
+
+    .image {
+      max-height: 360px;
+    }
+
+    .search {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        flex-wrap: wrap;
+
+        .inputSearch {
+            min-width: 280px;
+        }
+
+        @media (max-width: $mobile) {
+            gap: 3.5em;
+            align-items: center;
+            justify-content: center;
+
+            .buttonSearch {
+                width: 220px;
+            }
+        }
+
+                 
+    }
+}
+
+.content {
+    display: flex;
+    max-width: 80vw;
+    flex-direction: row;
+    flex-wrap: wrap;   
+    flex: 8;
+    padding: 16px;
+    align-self: center;
+    padding-top: 48px;
+          
+
+    @media (max-width: $mobile) {
+        max-width: 100vw;
+        justify-content: center;
+        
+    }
+}
+
+
+
