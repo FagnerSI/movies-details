@@ -3,7 +3,7 @@ import { Container, Image } from "./Header.styled";
 import styles from "./styles.module.scss";
 import Button from "../Button";
 
-const Header = () => {
+const Header = ({ onBack }: { onBack: () => void }) => {
   return (
     <Container>
       <Button
@@ -11,7 +11,7 @@ const Header = () => {
         title="Voltar"
         mode="flat"
         variant="secondary"
-        onClick={() => {}}
+        onClick={onBack}
       />
       <Image src={logo} alt="Logo" />
     </Container>

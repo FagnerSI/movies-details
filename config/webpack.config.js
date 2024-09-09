@@ -3,6 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+
+const { ModuleFederationPlugin } = require("webpack").container;
+
 const resolve = require('resolve');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -202,32 +205,10 @@ module.exports = function (webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appIndexJs,
     output: {
-      // The build folder.
-      path: paths.appBuild,
-      // Add /* filename */ comments to generated require()s in the output.
-      pathinfo: isEnvDevelopment,
-      // There will be one main bundle, and one file per asynchronous chunk.
-      // In development, it does not produce real files.
-      filename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].js'
-        : isEnvDevelopment && 'static/js/bundle.js',
-      // There are also additional JS chunk files if you use code splitting.
-      chunkFilename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].chunk.js'
-        : isEnvDevelopment && 'static/js/[name].chunk.js',
-      assetModuleFilename: 'static/media/[name].[hash][ext]',
-      // webpack uses `publicPath` to determine where the app is being served from.
-      // It requires a trailing slash, or the file assets will get an incorrect path.
-      // We inferred the "public path" (such as / or /my-project) from homepage.
-      publicPath: paths.publicUrlOrPath,
-      // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-        ? info =>
-          path
-            .relative(paths.appSrc, info.absoluteResourcePath)
-            .replace(/\\/g, '/')
-        : isEnvDevelopment &&
-        (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      path: path.resolve(__dirname, 'build'),
+      filename: '[name].[contenthash].js',
+      chunkFilename: '[name].[contenthash].chunk.js',
+      publicPath: 'auto',
     },
     cache: {
       type: 'filesystem',
@@ -564,6 +545,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -746,6 +728,19 @@ module.exports = function (webpackEnv) {
               'react/react-in-jsx-scope': 'error',
             }),
           },
+        },
+      }),
+      new ModuleFederationPlugin({
+        name: "details_app", // Nome da aplicação
+        filename: "remoteEntry.js", // Arquivo de entrada
+        exposes: {
+          // Componentes que você deseja expor para outros micro front-ends
+          './DetailsMovies': './src/App',
+        },
+        shared: {
+          react: { singleton: true, eager: true, requiredVersion: '^18.0.0' },
+          'react-dom': { singleton: true, eager: true, requiredVersion: '^18.0.0' },
+          'styled-components': { singleton: true, eager: true },
         },
       }),
     ].filter(Boolean),

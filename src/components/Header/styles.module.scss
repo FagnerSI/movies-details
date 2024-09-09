@@ -1,4 +1,11 @@
+@import '../../styles/breakpoints';
+
 .button {
     position: absolute;
     left: 24px;
+
+    @media (max-width: $mobile) {
+        position: relative;
+        left: 0;
+    }
 }
