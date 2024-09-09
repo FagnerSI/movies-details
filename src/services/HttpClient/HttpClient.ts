@@ -10,7 +10,7 @@ export class HttpClient implements IHttpClient {
         this.queryKeyParams = queryParams || '';
     }
 
-    async request({ method, url, data, headers = {} }: IHttpClientRequest) {
+    async request({ method, url, data, headers = {}, query = "" }: IHttpClientRequest) {
         const options: RequestInit = {
             method,
             headers: {
@@ -20,9 +20,20 @@ export class HttpClient implements IHttpClient {
             body: data ? JSON.stringify(data) : null,
         };
 
+        this.setQueryParams(query);
+        
+        const finalyUrl = ()=> {
+                if(this.queryParams && this.queryKeyParams){
+                  return this.baseUrl + url + '?' + [this.queryParams, this.queryKeyParams].join('&')
+                } else if(this.queryParams){
+                  return this.baseUrl + url + '?' + this.queryParams
+                }else {
+                  return this.baseUrl + url;
+                }
+        } 
+
         try {
-            const finalyUrl = this.baseUrl + url + '?' + [this.queryParams, this.queryKeyParams].join('&')
-            const response = await fetch(finalyUrl, options);
+            const response = await fetch(finalyUrl(), options);
             
             if (!response.ok) {
                 const errorText = await response.text();
@@ -39,13 +50,13 @@ export class HttpClient implements IHttpClient {
     setQueryParams = (query?: string) => {
         if(query){
             this.queryParams = query;
+        }else{
+            this.queryParams=""
         }
     }
 
     get(url: THttpURL, query?: string, headers: THttpHeaders = {}) {
-        this.setQueryParams(query)
-        
-        return this.request({ method: 'GET', url, headers});
+      return this.request({ method: 'GET', url, headers, query });
     }
 
     delete(url: THttpURL, headers: THttpHeaders = {}) {

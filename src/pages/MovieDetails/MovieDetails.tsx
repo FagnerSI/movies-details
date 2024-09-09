@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "~/components/Button";
 import Spinner from "~/components/Spinner";
 import styles from "./styles.module.scss";
@@ -13,24 +12,13 @@ const IMAGE_LINK_DEFAULT = "https://via.placeholder.com/300x200";
 export default function Search({
   loadingMovie,
   details: movie,
+  favoriteMovie,
 }: MovieDetailsProps) {
-  const [listFavorites, setListFavorites] = useState<number[]>([]);
-
-  const isFavorite = () => listFavorites.find((item) => item === movie?.id);
+  // Identificar se o filme faz parte da lista de favoritos
+  const isFavorite = () => false;
 
   const handleFavorite = () => {
-    if (isFavorite()) {
-      setListFavorites((prevList) => {
-        return prevList.filter((id) => id !== movie?.id);
-      });
-      return;
-    }
-
-    if (movie) {
-      setListFavorites((prevList) => {
-        return [...prevList, movie.id];
-      });
-    }
+    favoriteMovie?.();
   };
 
   const handleBack = () => {

@@ -7,7 +7,8 @@ export interface IHttpClientRequest {
     url: THttpURL,
     method: THttpMethod,
     data?: THttpData,
-    headers?: THttpHeaders
+    headers?: THttpHeaders,
+    query?: string,
 }
 
 export interface IHttpClient {
