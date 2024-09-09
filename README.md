@@ -1,51 +1,56 @@
-# Getting Started with Create React App
+# Projeto Nome
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é um projeto React criado usando [Create React App](https://create-react-app.dev/). Ele serve como uma aplicação básica com estrutura inicial e dependências configuradas para desenvolvimento e construção.
 
-## Available Scripts
+## 📋 Índice
 
-In the project directory, you can run:
+1. [Sobre o Projeto](#sobre-o-projeto)
+2. [Funcionalidades](#funcionalidades)
+3. [Pré-requisitos](#pré-requisitos)
+4. [Instalação](#instalação)
+5. [Estrutura do Projeto](#estrutura-do-projeto)
 
-### `npm start`
+## 📝 Sobre o Projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+O projeto **movies-details** é uma aplicação web construída em React. Ele é desenvolvido para fornecer uma interface simples e eficiente para usuários visualizarem detalhes de um filme consumindo a API do [themoviedb.org](https://developer.themoviedb.org/reference/intro/getting-started).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 Funcionalidades
 
-### `npm test`
+- Visualizar detalhes de um filme.
+- Favoritar um filme.
+- Integração com API externa.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠 Pré-requisitos
 
-### `npm run build`
+Para executar o projeto localmente, você precisará das seguintes ferramentas instaladas:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Node.js](https://nodejs.org/en/) (versão 14 ou superior)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/) (gerenciador de pacotes)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 💻 Instalação
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Siga os passos abaixo para rodar o projeto em sua máquina local:
 
-### `npm run eject`
+1. Clone o repositório:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+   ```bash
+   git clone https://github.com/FagnerSI/movies-details.git
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Entre no diretório do projeto:
+   cd movies-details
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Instale as dependências:
+   npm install
 
-## Learn More
+4. Configuração de ambiente:
+   No arquivo .env altere a variável REACT_APP_API_KEY para sua chave, fornecida em [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api/regenerate_confirm), REACT_APP_ACCOUNT_ID para sua id de cont e REACT_APP_AUTH_TOKEN para seu token de autenticação.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Inicie o servidor de desenvolvimento:
+   npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Arquitetura
+📂 Estrutura do Projeto
 
 /src
 │
@@ -68,26 +73,29 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ├── /services # Serviços e APIs externas
 │ ├── api.ts # Arquivo de configuração da API
 │ └── Search # Serviço de busca
-│   └── index.ts
+│ └── index.ts
+│ └── HttpClient # Client http
+│ └── index.ts
 |
 ├── /utils # Utilitários e funções auxiliares
 │ ├── formatDate.ts # Exemplo de função de formatação de datas
 │ └── mountLinkImage.ts # Exemplo de função de montagem de link de imagem
 │
 ├── /styles # Estilos globais
-│ ├── _variables.scss # Variáveis SASS
+│ ├── \_breakpoints.scss # Variáveis SASS de pontos de quebra por dispositivos
+│ ├── \_variables.scss # Variáveis SASS
+│ ├── \_breakpoints.scss # Variáveis de pontos de quebra por dispositivos
 │ └── theme.ts # Estilos globais
 │
 ├── /types # Tipos globais
 │ ├── movie # Tipos de movies global
-| |  └── index.ts
+| | └── index.ts
 | |
 │ └── styles # Tipos de estilos globais
-|    └── index.ts
+| └── index.ts
 |
 ├── /pages # Páginas principais da aplicação
-│ ├── Home.tsx # Página principal
-│ └── Product.tsx # Página de produto
+│ └── Search.tsx # Página principal
 │
 ├── Root.tsx # Componente raiz que injeta o theme
 ├── App.tsx # Componente principal
